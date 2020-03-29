@@ -4,7 +4,7 @@ import { Button, Container } from "@material-ui/core"
 const LearnButton = () => (
   <Container style={{ textAlign: "center" }}>
     <Button variant="outlined" color="primary">
-      Learn
+      MIDI Learn
     </Button>
   </Container>
 )

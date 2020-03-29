@@ -1,15 +1,14 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import { AppBar, Toolbar, Typography } from "@material-ui/core"
 
 const Header = ({ siteTitle }) => (
-  <header>
-    <div>
-      <h1>
-        <Link to="/">{siteTitle}</Link>
-      </h1>
-    </div>
-  </header>
+  <AppBar position="static">
+    <Toolbar color="inherit">
+      <Typography>{siteTitle}</Typography>
+    </Toolbar>
+  </AppBar>
 )
 
 Header.propTypes = {
