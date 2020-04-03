@@ -7,9 +7,13 @@ class NoteBlock extends Component {
     this.state = { color: "grey" }
   }
 
-  handleClick = (event) => {
-    this.props.synth.playNote("C3")
+  activate = () => {
     this.setState({ color: "blue" })
+    this.props.synth.playNote("C3", this.deactivate)
+  }
+
+  deactivate = () => {
+    this.setState({ color: "grey" })
   }
 
   render() {
@@ -22,7 +26,7 @@ class NoteBlock extends Component {
           height: 100,
           backgroundColor: `${this.state.color}`,
         }}
-        onClick={this.handleClick}
+        onClick={this.activate}
       />
     )
   }
