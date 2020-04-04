@@ -1,5 +1,4 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { Component } from "react"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
@@ -7,6 +6,9 @@ import SEO from "../components/seo"
 import Fader from "../components/fader"
 import LearnButton from "../components/learn-button"
 import NoteGrid from "../components/note-grid"
+import StartButton from "../components/start-button"
+import Game from "../components/game"
+import Synth from "../components/synth"
 
 import {
   Container,
@@ -71,56 +73,68 @@ const keys = [
   },
 ]
 
-const IndexPage = () => {
-  return (
-    <Layout>
-      <SEO title="Home" />
-      <NoteGrid />
-      {/* Settings */}
-      <ExpansionPanel>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMore />}
-          aria-controls="settings-content"
-          id="settings-header"
-        >
-          <Typography>Settings</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Grid container spacing={10}>
-            <Grid item xs={12} md={4}>
-              <Fader label="Key" min={0} max={11} marks={keys} />
-              <LearnButton />
+const synth = new Synth()
+const game = new Game(synth)
+
+class IndexPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { game: game, synth: synth }
+  }
+
+  render() {
+    return (
+      <Layout>
+        <SEO title="Home" />
+        <StartButton game={this.state.game} />
+        <NoteGrid synth={this.state.synth} />
+
+        {/* Settings */}
+        <ExpansionPanel>
+          <ExpansionPanelSummary
+            expandIcon={<ExpandMore />}
+            aria-controls="settings-content"
+            id="settings-header"
+          >
+            <Typography>Settings</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Grid container spacing={10}>
+              <Grid item xs={12} md={4}>
+                <Fader label="Key" min={0} max={11} marks={keys} />
+                <LearnButton />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Fader
+                  label="Tempo"
+                  min={60}
+                  max={240}
+                  defaultValue={120}
+                  step={10}
+                  valueLabelDisplay="on"
+                  marks={[60, 240].map(number => {
+                    return { value: number, label: number }
+                  })}
+                />{" "}
+                <LearnButton />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Fader
+                  label="Phrase Length"
+                  min={2}
+                  max={8}
+                  marks={[2, 3, 4, 5, 6, 7, 8].map(number => {
+                    return { value: number, label: number }
+                  })}
+                />
+                <LearnButton />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <Fader
-                label="Tempo"
-                min={60}
-                max={240}
-                defaultValue={120}
-                step={10}
-                valueLabelDisplay="on"
-                marks={[60, 240].map(number => {
-                  return { value: number, label: number }
-                })}
-              />{" "}
-              <LearnButton />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Fader
-                label="Phrase Length"
-                min={2}
-                max={8}
-                marks={[2, 3, 4, 5, 6, 7, 8].map(number => {
-                  return { value: number, label: number }
-                })}
-              />
-              <LearnButton />
-            </Grid>
-          </Grid>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </Layout>
-  )
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </Layout>
+    )
+  }
 }
 
 export default IndexPage
