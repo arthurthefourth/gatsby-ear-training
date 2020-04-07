@@ -7,13 +7,8 @@ class NoteBlock extends Component {
     this.state = { color: "grey" }
   }
 
-  activate = () => {
-    this.setState({ color: "blue" })
-    this.props.synth.playNote("C3", this.deactivate)
-  }
-
-  deactivate = () => {
-    this.setState({ color: "grey" })
+  backgroundColor() {
+    return this.props.activated ? "blue" : "grey"
   }
 
   render() {
@@ -24,9 +19,8 @@ class NoteBlock extends Component {
         style={{
           width: 100,
           height: 100,
-          backgroundColor: `${this.state.color}`,
+          backgroundColor: this.backgroundColor(),
         }}
-        onClick={this.activate}
       />
     )
   }

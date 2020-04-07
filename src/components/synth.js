@@ -23,17 +23,24 @@ class Synth {
     this.polySynth.triggerAttackRelease(pitches, this.noteLength)
   }
 
-  playSequence(sequence) {
-    console.log(sequence)
+  // Runs callbacks before and after *each* note in the sequence.
+  playSequence(sequence, startCallback, endCallback) {
+    const noteLength = "4n"
+    const delay = 2
     const toneSequence = new Tone.Sequence(
       (_time, note) => {
-        this.playNote(note)
+        if (isFunction(startCallback)) {
+          startCallback()
+        }
+
+        this.playNote(note, endCallback)
       },
       sequence,
-      '4n'
+      noteLength
     )
+
     toneSequence.loop = false
-    toneSequence.start(2)
+    toneSequence.start(delay)
     Tone.Transport.stop()
     Tone.Transport.start()
   }

@@ -8,7 +8,6 @@ import LearnButton from "../components/learn-button"
 import NoteGrid from "../components/note-grid"
 import StartButton from "../components/start-button"
 import Game from "../components/game"
-import Synth from "../components/synth"
 
 import {
   Container,
@@ -73,22 +72,12 @@ const keys = [
   },
 ]
 
-const synth = new Synth()
-const game = new Game(synth)
-
 class IndexPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { game: game, synth: synth }
-  }
-
   render() {
     return (
       <Layout>
         <SEO title="Home" />
-        <StartButton game={this.state.game} />
-        <NoteGrid synth={this.state.synth} />
-
+        <Game />
         {/* Settings */}
         <ExpansionPanel>
           <ExpansionPanelSummary

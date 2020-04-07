@@ -17,16 +17,16 @@ class NoteGrid extends Component {
             <Hearing fontSize="large" />
           </Grid>
           <Grid item>
-            <NoteBlock synth={this.props.synth} />
+            <NoteBlock activated={this.props.activated[0]} />
           </Grid>
           <Grid item>
-            <NoteBlock synth={this.props.synth} />
+            <NoteBlock activated={this.props.activated[1]} />
           </Grid>
           <Grid item>
-            <NoteBlock synth={this.props.synth} />
+            <NoteBlock activated={this.props.activated[2]} />
           </Grid>
           <Grid item>
-            <NoteBlock synth={this.props.synth} />
+            <NoteBlock activated={this.props.activated[3]} />
           </Grid>
         </Grid>
         <Grid container justify="center" spacing={2}>
@@ -34,16 +34,16 @@ class NoteGrid extends Component {
             <Straighten fontSize="large" />
           </Grid>
           <Grid item>
-            <NoteBlock synth={this.props.synth} />
+            <NoteBlock />
           </Grid>
           <Grid item>
-            <NoteBlock synth={this.props.synth} />
+            <NoteBlock />
           </Grid>
           <Grid item>
-            <NoteBlock synth={this.props.synth} />
+            <NoteBlock />
           </Grid>
           <Grid item>
-            <NoteBlock synth={this.props.synth} />
+            <NoteBlock />
           </Grid>
         </Grid>
       </div>
