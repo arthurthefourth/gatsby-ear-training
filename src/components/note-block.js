@@ -1,14 +1,21 @@
 import React, { Component } from "react"
 import { Paper } from "@material-ui/core"
 
+const colors = {
+  playing: "blue",
+  right: "green",
+  wrong: "red",
+  inactive: "grey"
+}
+
 class NoteBlock extends Component {
   constructor(props) {
     super(props)
-    this.state = { color: "grey" }
+    this.state = { color: colors.inactive }
   }
 
   backgroundColor() {
-    return this.props.activated ? "blue" : "grey"
+    return colors[this.props.status]
   }
 
   render() {

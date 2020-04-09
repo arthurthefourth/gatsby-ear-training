@@ -3,16 +3,21 @@ import NoteGrid from "./note-grid"
 import SequenceGenerator from "./sequence-generator"
 import StartButton from "./start-button"
 import Synth from "./synth"
+import MIDISetup from "./midi-setup"
 
 const sequenceLength = 4
 
 class Game extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       synth: new Synth(),
-      playingNotes: new Array(sequenceLength).fill(false),
+      computerNoteStatuses: new Array(sequenceLength).fill("inactive"),
+      userNoteStatuses: new Array(sequenceLength).fill("inactive"),
       sequenceGenerator: new SequenceGenerator(sequenceLength),
+      isRecording: false,
+      recordedNotes: [],
     }
 
     this.resetSequence()
@@ -22,36 +27,57 @@ class Game extends Component {
     this.currentNoteIndex = 0
   }
 
+  // Set as current playing note
+  // We use currentNoteIndex to iterate through the sequence and whenever these callbacks
+  // are called, they affect the current note in the sequence.
   startCurrentNote = () => {
     this.setState(state => {
-      const playingNotes = state.playingNotes.map((noteIsPlaying, i) => {
+      const computerNoteStatuses = state.computerNoteStatuses.map((noteStatus, i) => {
         if (i === this.currentNoteIndex) {
-          return true
+          console.log(`Note ${i} playing`)
+          return "playing"
         } else {
-          return noteIsPlaying
+          return noteStatus
         }
       })
-      return { playingNotes }
+      console.log(computerNoteStatuses)
+      return { computerNoteStatuses }
     })
   }
 
+  // Remove as current playing note
   finishCurrentNote = () => {
     this.setState(state => {
-      const playingNotes = state.playingNotes.map((noteIsPlaying, i) => {
+      const computerNoteStatuses = state.computerNoteStatuses.map((noteStatus, i) => {
         if (i === this.currentNoteIndex) {
-          return false
+          console.log(`Note ${i} inactive`)
+          return "inactive"
         } else {
-          return noteIsPlaying
+          return noteStatus
         }
       })
-      return { playingNotes }
+      console.log(computerNoteStatuses)
+      return { computerNoteStatuses }
     })
     this.currentNoteIndex++
+  }
+
+  handleMIDINote = note => {
+    console.log(note)
+    if (this.state.isRecording) {
+      const recordedNotes = this.state.recordedNotes
+      recordedNotes.push(note)
+      if (recordedNotes.length >= sequenceLength) {
+        this.setState({ isRecording: false })
+      }
+      console.log(recordedNotes)
+    }
   }
 
   play() {
     this.playEstablishingChord()
     this.playSequence()
+    this.setState({ isRecording: true })
   }
 
   playEstablishingChord() {
@@ -71,8 +97,12 @@ class Game extends Component {
   render() {
     return (
       <Fragment>
+        <MIDISetup handleNote={this.handleMIDINote} />
         <StartButton game={this} />
-        <NoteGrid activated={this.state.playingNotes} />
+        <div style={{ marginTop: 50, marginBottom: 100 }}>
+          <NoteGrid type="computer" statuses={this.state.computerNoteStatuses} />
+          <NoteGrid type="user" statuses={this.state.userNoteStatuses} />
+        </div>
       </Fragment>
     )
   }

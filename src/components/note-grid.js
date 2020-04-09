@@ -5,48 +5,35 @@ import NoteBlock from "./note-block"
 import { Hearing, Straighten } from "@material-ui/icons"
 
 class NoteGrid extends Component {
-  constructor(props) {
-    super(props)
+  icon() {
+    const icons = {
+      computer: Hearing,
+      user: Straighten,
+    }
+    return icons[this.props.type]
   }
 
   render() {
+    const Icon = this.icon()
+
     return (
-      <div style={{ marginTop: 50, marginBottom: 100 }}>
-        <Grid container justify="center" spacing={2}>
-          <Grid item style={{ alignSelf: "center" }}>
-            <Hearing fontSize="large" />
-          </Grid>
-          <Grid item>
-            <NoteBlock activated={this.props.activated[0]} />
-          </Grid>
-          <Grid item>
-            <NoteBlock activated={this.props.activated[1]} />
-          </Grid>
-          <Grid item>
-            <NoteBlock activated={this.props.activated[2]} />
-          </Grid>
-          <Grid item>
-            <NoteBlock activated={this.props.activated[3]} />
-          </Grid>
+      <Grid container justify="center" spacing={2}>
+        <Grid item style={{ alignSelf: "center" }}>
+          <Icon fontSize="large" />
         </Grid>
-        <Grid container justify="center" spacing={2}>
-          <Grid item style={{ alignSelf: "center" }}>
-            <Straighten fontSize="large" />
-          </Grid>
-          <Grid item>
-            <NoteBlock />
-          </Grid>
-          <Grid item>
-            <NoteBlock />
-          </Grid>
-          <Grid item>
-            <NoteBlock />
-          </Grid>
-          <Grid item>
-            <NoteBlock />
-          </Grid>
+        <Grid item>
+          <NoteBlock key={0} status={this.props.statuses[0]} />
         </Grid>
-      </div>
+        <Grid item>
+          <NoteBlock key={1} status={this.props.statuses[1]} />
+        </Grid>
+        <Grid item>
+          <NoteBlock key={2} status={this.props.statuses[2]} />
+        </Grid>
+        <Grid item>
+          <NoteBlock key={3} status={this.props.statuses[3]} />
+        </Grid>
+      </Grid>
     )
   }
 }
