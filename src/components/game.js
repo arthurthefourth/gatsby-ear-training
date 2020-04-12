@@ -17,7 +17,8 @@ class Game extends Component {
       userNoteStatuses: new Array(sequenceLength).fill("inactive"),
       sequenceGenerator: new SequenceGenerator(sequenceLength),
       isRecording: false,
-      recordedNotes: [],
+      playedNotes: new Array(sequenceLength),
+      recordedNotes: new Array(sequenceLength),
     }
 
     this.resetSequence()
@@ -32,15 +33,15 @@ class Game extends Component {
   // are called, they affect the current note in the sequence.
   startCurrentNote = () => {
     this.setState(state => {
-      const computerNoteStatuses = state.computerNoteStatuses.map((noteStatus, i) => {
-        if (i === this.currentNoteIndex) {
-          console.log(`Note ${i} playing`)
-          return "playing"
-        } else {
-          return noteStatus
+      const computerNoteStatuses = state.computerNoteStatuses.map(
+        (noteStatus, i) => {
+          if (i === this.currentNoteIndex) {
+            return "playing"
+          } else {
+            return noteStatus
+          }
         }
-      })
-      console.log(computerNoteStatuses)
+      )
       return { computerNoteStatuses }
     })
   }
@@ -48,29 +49,57 @@ class Game extends Component {
   // Remove as current playing note
   finishCurrentNote = () => {
     this.setState(state => {
-      const computerNoteStatuses = state.computerNoteStatuses.map((noteStatus, i) => {
-        if (i === this.currentNoteIndex) {
-          console.log(`Note ${i} inactive`)
-          return "inactive"
-        } else {
-          return noteStatus
+      const computerNoteStatuses = state.computerNoteStatuses.map(
+        (noteStatus, i) => {
+          if (i === this.currentNoteIndex) {
+            return "inactive"
+          } else {
+            return noteStatus
+          }
         }
-      })
-      console.log(computerNoteStatuses)
+      )
       return { computerNoteStatuses }
     })
     this.currentNoteIndex++
   }
 
+  finishSequence = () => {
+    this.resetSequence()
+  }
+
   handleMIDINote = note => {
-    console.log(note)
     if (this.state.isRecording) {
-      const recordedNotes = this.state.recordedNotes
-      recordedNotes.push(note)
-      if (recordedNotes.length >= sequenceLength) {
+      this.setState(state => {
+        // Add current note to recordedNotes
+        const recordedNotes = state.recordedNotes.map((recordedNote, i) => {
+          if (i === this.currentNoteIndex) {
+            return note
+          } else {
+            return recordedNote
+          }
+        })
+
+        // Add status of current note to userNoteStatuses
+        const userNoteStatuses = state.userNoteStatuses.map((noteStatus, i) => {
+          if (i === this.currentNoteIndex) {
+            if (note === state.playedNotes[this.currentNoteIndex]) {
+              return "right"
+            } else {
+              return "wrong"
+            }
+          } else {
+            return noteStatus
+          }
+        })
+
+        return { recordedNotes, userNoteStatuses }
+      })
+
+      if (this.currentNoteIndex >= sequenceLength - 1) {
         this.setState({ isRecording: false })
+      } else {
+        this.currentNoteIndex++
       }
-      console.log(recordedNotes)
     }
   }
 
@@ -90,8 +119,14 @@ class Game extends Component {
     this.state.synth.playSequence(
       sequence,
       this.startCurrentNote,
-      this.finishCurrentNote
+      this.finishCurrentNote,
+      this.finishSequence
     )
+    this.setState({
+      playedNotes: sequence.map(note => {
+        return note.charAt(0)
+      }),
+    })
   }
 
   render() {
@@ -100,7 +135,10 @@ class Game extends Component {
         <MIDISetup handleNote={this.handleMIDINote} />
         <StartButton game={this} />
         <div style={{ marginTop: 50, marginBottom: 100 }}>
-          <NoteGrid type="computer" statuses={this.state.computerNoteStatuses} />
+          <NoteGrid
+            type="computer"
+            statuses={this.state.computerNoteStatuses}
+          />
           <NoteGrid type="user" statuses={this.state.userNoteStatuses} />
         </div>
       </Fragment>

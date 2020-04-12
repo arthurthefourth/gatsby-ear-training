@@ -24,16 +24,18 @@ class Synth {
   }
 
   // Runs callbacks before and after *each* note in the sequence.
-  playSequence(sequence, startCallback, endCallback) {
+  playSequence(sequence, onNoteStart, onNoteEnd, onSequenceEnd) {
     const noteLength = "4n"
     const delay = 2
+    Tone.Draw.schedule(onSequenceEnd, 4) // This should be a dynamic time value
+
     const toneSequence = new Tone.Sequence(
       (_time, note) => {
-        if (isFunction(startCallback)) {
-          startCallback()
+        if (isFunction(onNoteStart)) {
+          onNoteStart()
         }
 
-        this.playNote(note, endCallback)
+        this.playNote(note, onNoteEnd)
       },
       sequence,
       noteLength
