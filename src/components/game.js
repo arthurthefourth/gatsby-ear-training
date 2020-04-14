@@ -12,7 +12,6 @@ class Game extends Component {
     super(props)
 
     this.state = {
-      synth: new Synth(),
       computerNoteStatuses: new Array(sequenceLength).fill("inactive"),
       userNoteStatuses: new Array(sequenceLength).fill("inactive"),
       sequenceGenerator: new SequenceGenerator(sequenceLength),
@@ -22,6 +21,10 @@ class Game extends Component {
     }
 
     this.resetSequence()
+  }
+
+  componentDidMount() {
+    this.setState({synth: new Synth()})
   }
 
   resetSequence() {

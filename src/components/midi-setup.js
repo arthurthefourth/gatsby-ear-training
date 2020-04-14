@@ -2,8 +2,7 @@ import React, { Component } from "react"
 import WebMidi from "webmidi"
 
 class MIDISetup extends Component {
-  constructor(props) {
-    super(props)
+  componentDidMount() {
     WebMidi.enable(error => {
       if (error) {
         console.log("WebMidi could not be enabled.", error)
