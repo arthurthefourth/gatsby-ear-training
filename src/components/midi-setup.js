@@ -20,7 +20,7 @@ class MIDISetup extends Component {
     WebMidi.inputs.forEach(input => {
       console.log(`Adding listener to input: ${input.name}`)
       input.addListener("noteon", "all", noteEvent => {
-        this.props.handleNote(noteEvent.note.name)
+        this.props.handleNote(`${noteEvent.note.name}${noteEvent.note.octave}`)
       })
     })
   }

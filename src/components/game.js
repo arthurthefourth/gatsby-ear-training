@@ -24,7 +24,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    this.setState({synth: new Synth()})
+    this.setState({ synth: new Synth() })
   }
 
   resetSequence() {
@@ -71,6 +71,7 @@ class Game extends Component {
   }
 
   handleMIDINote = note => {
+    this.state.synth.playNote(note)
     if (this.state.isRecording) {
       this.setState(state => {
         // Add current note to recordedNotes
@@ -125,11 +126,7 @@ class Game extends Component {
       this.finishCurrentNote,
       this.finishSequence
     )
-    this.setState({
-      playedNotes: sequence.map(note => {
-        return note.charAt(0)
-      }),
-    })
+    this.setState({ playedNotes: sequence })
   }
 
   render() {
