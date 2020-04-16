@@ -6,6 +6,7 @@ class Synth {
     this.monoSynth = new Tone.Synth().toMaster()
     this.polySynth = new Tone.PolySynth(3, Tone.Synth).toMaster()
     this.noteLength = "8n"
+    Tone.Transport.start()
   }
 
   playNote(pitch, callback) {
@@ -26,13 +27,12 @@ class Synth {
   // Runs callbacks before and after *each* note in the sequence.
   playSequence(sequence, onNoteStart, onNoteEnd, onSequenceEnd) {
     const noteLength = "4n"
-    const delay = 2
-    Tone.Draw.schedule(onSequenceEnd, 4) // This should be a dynamic time value
+    Tone.Draw.schedule(onSequenceEnd, "+4") // This should be a dynamic time value
 
     const toneSequence = new Tone.Sequence(
       (_time, note) => {
         if (isFunction(onNoteStart)) {
-          onNoteStart()
+          Tone.Draw.schedule(onNoteStart)
         }
 
         this.playNote(note, onNoteEnd)
@@ -42,9 +42,7 @@ class Synth {
     )
 
     toneSequence.loop = false
-    toneSequence.start(delay)
-    Tone.Transport.stop()
-    Tone.Transport.start()
+    toneSequence.start("+2")
   }
 }
 

@@ -9,11 +9,6 @@ const colors = {
 }
 
 class NoteBlock extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { color: colors.inactive }
-  }
-
   backgroundColor() {
     return colors[this.props.status]
   }

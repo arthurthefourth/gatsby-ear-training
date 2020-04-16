@@ -7,19 +7,22 @@ import MIDISetup from "./midi-setup"
 
 const sequenceLength = 4
 
+function initialState() {
+  return {
+    computerNoteStatuses: new Array(sequenceLength).fill("inactive"),
+    userNoteStatuses: new Array(sequenceLength).fill("inactive"),
+    sequenceGenerator: new SequenceGenerator(sequenceLength),
+    isRecording: false,
+    playedNotes: new Array(sequenceLength),
+    recordedNotes: new Array(sequenceLength),
+  }
+}
+
 class Game extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      computerNoteStatuses: new Array(sequenceLength).fill("inactive"),
-      userNoteStatuses: new Array(sequenceLength).fill("inactive"),
-      sequenceGenerator: new SequenceGenerator(sequenceLength),
-      isRecording: false,
-      playedNotes: new Array(sequenceLength),
-      recordedNotes: new Array(sequenceLength),
-    }
-
+    this.state = initialState()
     this.resetSequence()
   }
 
@@ -108,6 +111,7 @@ class Game extends Component {
   }
 
   play() {
+    this.setState(initialState())
     this.playEstablishingChord()
     this.playSequence()
     this.setState({ isRecording: true })
