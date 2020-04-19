@@ -104,15 +104,18 @@ class Game extends Component {
 
       if (this.currentNoteIndex >= sequenceLength - 1) {
         this.setState({ isRecording: false })
+        setTimeout(this.play, 1000)
       } else {
         this.currentNoteIndex++
       }
     }
   }
 
-  play() {
+  play = (options = {}) => {
     this.setState(initialState())
-    this.playEstablishingChord()
+    if (options.firstRound) {
+      this.playEstablishingChord()
+    }
     this.playSequence()
     this.setState({ isRecording: true })
   }

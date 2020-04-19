@@ -7,13 +7,17 @@ class StartButton extends Component {
   }
 
   handleClick = () => {
-    this.props.game.play()
+    this.props.game.play({ firstRound: true })
   }
 
   render() {
     return (
       <Container style={{ textAlign: "center", marginTop: 50 }}>
-        <Button variant="outlined" color="primary" onClick={this.handleClick.bind(this)}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={this.handleClick.bind(this)}
+        >
           START
         </Button>
       </Container>
