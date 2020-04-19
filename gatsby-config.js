@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Ear Training`,
-    description: ``,
+    title: `Ear Training Prototype`,
+    description: `A simple ear-training app designed around listening and playing back, rather than theory.`,
     author: `@arthurlewis`,
   },
   plugins: [
