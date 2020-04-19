@@ -36,6 +36,10 @@ class Game extends Component {
     this.state.sequenceGenerator.key = value
   }
 
+  changeScale = value => {
+    this.state.sequenceGenerator.scale = value
+  }
+
   componentDidMount() {
     this.setState({
       sequenceGenerator: new SequenceGenerator(sequenceLength),
@@ -162,7 +166,7 @@ class Game extends Component {
           />
           <NoteGrid type="user" statuses={this.state.userNoteStatuses} />
         </div>
-        <Settings changeKey={this.changeKey} />
+        <Settings changeKey={this.changeKey} changeScale={this.changeScale} />
       </Fragment>
     )
   }

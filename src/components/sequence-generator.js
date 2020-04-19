@@ -22,14 +22,22 @@ function numberToNoteName(number) {
   return `${pitch}${octave}`
 }
 
-const majorScale = [0, 2, 4, 5, 7, 9, 11, 12]
-const majorTriad = [0, 4, 7]
+const scales = {
+  doReMi: [0, 2, 4],
+  majorTriad: [0, 4, 7],
+  majorPentatonic: [0, 2, 4, 7, 9],
+  majorScale: [0, 2, 4, 5, 7, 9, 11, 12],
+}
 
 class SequenceGenerator {
   constructor(length) {
     this.length = length
     this.key = 0
-    this.availableIntervals = majorScale
+    this.scale = 'majorScale'
+  }
+
+  get availableIntervals() {
+    return scales[this.scale]
   }
 
   get availablePitches() {
@@ -57,7 +65,7 @@ class SequenceGenerator {
   }
 
   generateEstablishingChord() {
-    const chord = majorTriad.map(interval => {
+    const chord = scales.majorTriad.map(interval => {
       return numberToNoteName(this.root + interval)
     })
     return chord

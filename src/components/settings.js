@@ -4,6 +4,9 @@ import {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   Grid,
+  InputLabel,
+  MenuItem,
+  Select,
   Typography,
 } from "@material-ui/core"
 
@@ -64,8 +67,15 @@ const keys = [
 ]
 
 const Settings = props => {
+  const [scale, setScale] = React.useState('majorScale')
+
   function changeKey(event, value) {
     props.changeKey(value)
+  }
+
+  function changeScale(event,) {
+    props.changeScale(event.target.value)
+    setScale(event.target.value)
   }
 
   return (
@@ -87,6 +97,15 @@ const Settings = props => {
               marks={keys}
               onChange={changeKey}
             />
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <InputLabel id="scale">Scale</InputLabel>
+            <Select labelId="scale" value={scale} onChange={changeScale}>
+              <MenuItem value="doReMi">Do Re Mi</MenuItem>
+              <MenuItem value="majorTriad">Major Triad</MenuItem>
+              <MenuItem value="majorPentatonic">Major Pentatonic</MenuItem>
+              <MenuItem value="majorScale">Major Scale</MenuItem>
+            </Select>
           </Grid>
           <Grid item xs={12} md={4}>
             <Fader
