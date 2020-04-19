@@ -55,6 +55,13 @@ class SequenceGenerator {
     }
     return sequence
   }
+
+  generateEstablishingChord() {
+    const chord = majorTriad.map(interval => {
+      return numberToNoteName(this.root + interval)
+    })
+    return chord
+  }
 }
 
 export default SequenceGenerator

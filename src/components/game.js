@@ -134,7 +134,8 @@ class Game extends Component {
   }
 
   playEstablishingChord() {
-    this.state.synth.playChord(["C3", "E3", "G3"])
+    const chord = this.state.sequenceGenerator.generateEstablishingChord()
+    this.state.synth.playChord(chord)
   }
 
   playSequence() {
