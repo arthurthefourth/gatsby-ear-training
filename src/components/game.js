@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react"
 import NoteGrid from "./note-grid"
 import SequenceGenerator from "./sequence-generator"
+import Settings from "./settings"
 import StartButton from "./start-button"
 import Synth from "./synth"
 import MIDISetup from "./midi-setup"
@@ -11,11 +12,16 @@ function initialState() {
   return {
     computerNoteStatuses: new Array(sequenceLength).fill("inactive"),
     userNoteStatuses: new Array(sequenceLength).fill("inactive"),
-    sequenceGenerator: new SequenceGenerator(sequenceLength),
     isRecording: false,
     playedNotes: new Array(sequenceLength),
     recordedNotes: new Array(sequenceLength),
   }
+}
+
+function sameNote(note, otherNote) {
+  const pitch = note.slice(0, -1)
+  const otherPitch = otherNote.slice(0, -1)
+  return pitch === otherPitch
 }
 
 class Game extends Component {
@@ -26,8 +32,15 @@ class Game extends Component {
     this.resetSequence()
   }
 
+  changeKey = value => {
+    this.state.sequenceGenerator.key = value
+  }
+
   componentDidMount() {
-    this.setState({ synth: new Synth() })
+    this.setState({
+      sequenceGenerator: new SequenceGenerator(sequenceLength),
+      synth: new Synth(),
+    })
   }
 
   resetSequence() {
@@ -89,7 +102,7 @@ class Game extends Component {
         // Add status of current note to userNoteStatuses
         const userNoteStatuses = state.userNoteStatuses.map((noteStatus, i) => {
           if (i === this.currentNoteIndex) {
-            if (note === state.playedNotes[this.currentNoteIndex]) {
+            if (sameNote(note, state.playedNotes[this.currentNoteIndex])) {
               return "right"
             } else {
               return "wrong"
@@ -148,6 +161,7 @@ class Game extends Component {
           />
           <NoteGrid type="user" statuses={this.state.userNoteStatuses} />
         </div>
+        <Settings changeKey={this.changeKey} />
       </Fragment>
     )
   }

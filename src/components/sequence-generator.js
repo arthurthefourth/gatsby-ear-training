@@ -24,21 +24,34 @@ function numberToNoteName(number) {
 
 const majorScale = [0, 2, 4, 5, 7, 9, 11, 12]
 const majorTriad = [0, 4, 7]
-const root = 48 // Middle C
-const availablePitches = majorScale.map(interval => {
-  return numberToNoteName(root + interval)
-})
 
 class SequenceGenerator {
   constructor(length) {
     this.length = length
+    this.key = 0
+    this.availableIntervals = majorScale
+  }
+
+  get availablePitches() {
+    return this.availableIntervals.map(interval => {
+      return numberToNoteName(this.root + interval)
+    })
+  }
+
+  get key() {
+    return this.root - 48
+  }
+
+  // Expects a number from 0-11
+  set key(noteNumber) {
+    this.root = noteNumber + 48
   }
 
   generate() {
     let i
     const sequence = []
     for (i = 0; i < this.length; i++) {
-      sequence.push(sample(availablePitches))
+      sequence.push(sample(this.availablePitches))
     }
     return sequence
   }

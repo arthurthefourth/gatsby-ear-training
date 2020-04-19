@@ -1,5 +1,5 @@
 import React from "react"
-import { 
+import {
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
@@ -63,7 +63,11 @@ const keys = [
   },
 ]
 
-const Settings = () => {
+const Settings = props => {
+  function changeKey(event, value) {
+    props.changeKey(value)
+  }
+
   return (
     <ExpansionPanel>
       <ExpansionPanelSummary
@@ -76,11 +80,17 @@ const Settings = () => {
       <ExpansionPanelDetails>
         <Grid container spacing={10}>
           <Grid item xs={12} md={4}>
-            <Fader label="Key" min={0} max={11} marks={keys} />
-            <LearnButton />
+            <Fader
+              label="Key"
+              min={0}
+              max={11}
+              marks={keys}
+              onChange={changeKey}
+            />
           </Grid>
           <Grid item xs={12} md={4}>
             <Fader
+              disabled={true}
               label="Tempo"
               min={60}
               max={240}
@@ -91,10 +101,10 @@ const Settings = () => {
                 return { value: number, label: number }
               })}
             />{" "}
-            <LearnButton />
           </Grid>
           <Grid item xs={12} md={4}>
             <Fader
+              disabled={true}
               label="Phrase Length"
               min={2}
               max={8}
@@ -102,7 +112,6 @@ const Settings = () => {
                 return { value: number, label: number }
               })}
             />
-            <LearnButton />
           </Grid>
         </Grid>
       </ExpansionPanelDetails>
