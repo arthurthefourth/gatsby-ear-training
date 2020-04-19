@@ -30,7 +30,6 @@ const Instructions = () => {
       <Typography variant="h4">Planned Features</Typography>
       <Typography variant="body1">
         <ul>
-          <li>Manually replay phrase</li>
           <li>Some sort of point system</li>
           <li>Minor scales/keys</li>
           <li>Different types of melodic motion</li>

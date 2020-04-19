@@ -87,6 +87,7 @@ class Game extends Component {
   }
 
   finishSequence = () => {
+    this.setState({ isRecording: true })
     this.resetSequence()
   }
 
@@ -134,7 +135,6 @@ class Game extends Component {
       this.playEstablishingChord()
     }
     this.playSequence()
-    this.setState({ isRecording: true })
   }
 
   playEstablishingChord() {
@@ -154,6 +154,16 @@ class Game extends Component {
     this.setState({ playedNotes: sequence })
   }
 
+  replaySequence = () => {
+    this.resetSequence()
+    this.state.synth.playSequence(
+      this.state.playedNotes,
+      this.startCurrentNote,
+      this.finishCurrentNote,
+      this.finishSequence
+    )
+  }
+
   render() {
     return (
       <Fragment>
@@ -163,6 +173,8 @@ class Game extends Component {
           <NoteGrid
             type="computer"
             statuses={this.state.computerNoteStatuses}
+            replayAvailable={this.state.isRecording}
+            handleReplayClick={this.replaySequence}
           />
           <NoteGrid type="user" statuses={this.state.userNoteStatuses} />
         </div>
