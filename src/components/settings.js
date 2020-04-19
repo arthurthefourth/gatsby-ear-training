@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core"
 
 import Fader from "./fader"
-import LearnButton from "./learn-button"
 
 import { ExpandMore } from "@material-ui/icons"
 

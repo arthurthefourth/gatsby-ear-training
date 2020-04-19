@@ -2,10 +2,6 @@ import React, { Component } from "react"
 import { Button, Container } from "@material-ui/core"
 
 class StartButton extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   handleClick = () => {
     this.props.game.play({ firstRound: true })
   }
