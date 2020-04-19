@@ -19,7 +19,7 @@ const keys = [
   },
   {
     value: 1,
-    label: "Db",
+    label: "C#",
   },
   {
     value: 2,
@@ -27,7 +27,7 @@ const keys = [
   },
   {
     value: 3,
-    label: "Eb",
+    label: "D#",
   },
   {
     value: 4,
@@ -39,7 +39,7 @@ const keys = [
   },
   {
     value: 6,
-    label: "Gb",
+    label: "F#",
   },
   {
     value: 7,
@@ -47,7 +47,7 @@ const keys = [
   },
   {
     value: 8,
-    label: "Ab",
+    label: "G#",
   },
   {
     value: 9,
@@ -55,7 +55,7 @@ const keys = [
   },
   {
     value: 10,
-    label: "Bb",
+    label: "A#",
   },
   {
     value: 11,

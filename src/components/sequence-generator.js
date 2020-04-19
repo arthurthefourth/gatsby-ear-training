@@ -3,16 +3,16 @@ import { sample } from "lodash"
 function numberToNoteName(number) {
   const pitchClasses = [
     "C",
-    "Db",
+    "C#",
     "D",
-    "Eb",
+    "D#",
     "E",
     "F",
-    "Gb",
+    "F#",
     "G",
-    "Ab",
+    "G#",
     "A",
-    "Bb",
+    "A#",
     "B",
   ]
 
