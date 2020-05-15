@@ -5,7 +5,7 @@ const colors = {
   playing: "blue",
   right: "green",
   wrong: "red",
-  inactive: "grey"
+  inactive: "grey",
 }
 
 class NoteBlock extends Component {

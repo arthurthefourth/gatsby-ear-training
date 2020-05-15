@@ -33,28 +33,26 @@ class NoteGrid extends Component {
     const Icon = this.icon()
 
     return (
-      <div>
-        <Grid container justify="center" spacing={2}>
-          <Grid item md={1} style={{ alignSelf: "center", textAlign: "right" }}>
-            <Icon fontSize="large" />
-          </Grid>
-          <Grid item md={1}>
-            <NoteBlock key={0} status={this.props.statuses[0]} />
-          </Grid>
-          <Grid item md={1}>
-            <NoteBlock key={1} status={this.props.statuses[1]} />
-          </Grid>
-          <Grid item md={1}>
-            <NoteBlock key={2} status={this.props.statuses[2]} />
-          </Grid>
-          <Grid item md={1}>
-            <NoteBlock key={3} status={this.props.statuses[3]} />
-          </Grid>
-          <Grid item style={{ alignSelf: "center" }} md={1}>
-            {this.replayIcon()}
-          </Grid>
+      <Grid container justify="center" spacing={2}>
+        <Grid item md={1} style={{ alignSelf: "center", textAlign: "right" }}>
+          <Icon fontSize="large" />
         </Grid>
-      </div>
+        <Grid item md={1}>
+          <NoteBlock key={0} status={this.props.statuses[0]} />
+        </Grid>
+        <Grid item md={1}>
+          <NoteBlock key={1} status={this.props.statuses[1]} />
+        </Grid>
+        <Grid item md={1}>
+          <NoteBlock key={2} status={this.props.statuses[2]} />
+        </Grid>
+        <Grid item md={1}>
+          <NoteBlock key={3} status={this.props.statuses[3]} />
+        </Grid>
+        <Grid item style={{ alignSelf: "center" }} md={1}>
+          {this.replayIcon()}
+        </Grid>
+      </Grid>
     )
   }
 }
