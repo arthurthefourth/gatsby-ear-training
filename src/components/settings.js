@@ -5,13 +5,13 @@ import {
   ExpansionPanelSummary,
   Grid,
   InputLabel,
-  MenuItem,
-  Select,
   Typography,
 } from "@material-ui/core"
 
+import Select from "@material-ui/core/Select"
+import MenuItem from "@material-ui/core/MenuItem"
+
 import Fader from "./fader"
-import LearnButton from "./learn-button"
 
 import { ExpandMore } from "@material-ui/icons"
 

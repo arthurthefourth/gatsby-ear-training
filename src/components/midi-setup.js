@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import WebMidi from "webmidi"
 
 class MIDISetup extends Component {
@@ -26,7 +26,7 @@ class MIDISetup extends Component {
   }
 
   render() {
-    return null;
+    return null
   }
 }
 
