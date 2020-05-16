@@ -15,15 +15,21 @@ class NoteBlock extends Component {
 
   render() {
     return (
-      <Paper
-        variant="outlined"
-        elevation={10}
-        style={{
-          width: 100,
-          height: 100,
-          backgroundColor: this.backgroundColor(),
-        }}
-      />
+      <div
+        role="image"
+        aria-live="polite"
+        aria-label={`${this.props.status} note`}
+      >
+        <Paper
+          variant="outlined"
+          elevation={10}
+          style={{
+            width: 100,
+            height: 100,
+            backgroundColor: this.backgroundColor(),
+          }}
+        />
+      </div>
     )
   }
 }
