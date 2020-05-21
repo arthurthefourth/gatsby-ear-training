@@ -1,8 +1,7 @@
-# Untitled Gatsby Ear Training Project
-
-![Screenshot](screenshot.png)
-
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a2dc1a3a-5e4f-4671-a070-e8186d7ecdfc/deploy-status)](https://app.netlify.com/sites/competent-saha-50e965/deploys)
+
+![Screenshot](screenshot.png)  
+<em>https://eartraining.arthurthefourth.com</em>
 
 ## Purpose
 
