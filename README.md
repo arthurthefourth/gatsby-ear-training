@@ -1,99 +1,49 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+![Screenshot](screenshot.png)  
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a2dc1a3a-5e4f-4671-a070-e8186d7ecdfc/deploy-status)](https://app.netlify.com/sites/competent-saha-50e965/deploys)
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+## Purpose
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+I've always been convinced that there's a better way to train your ear to recognize and play back melodies than what exists out there, and I've been working on various solutions to that for almost 20 years now. There are two main goals with this one:
 
-## 🚀 Quick start
+1) To build the connection between the sound of a note or phrase in context and the physical feeling of playing it on your instrument, bypassing the intermediate step of note names, interval names, and notation. I'm not sure how well this works for beginners, but if you already know your theory, and just want to practice, this feels much more immediate.
 
-1.  **Create a Gatsby site.**
+2) To allow the user to practice with phrases that match their specific needs.
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+## Technology
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+This is a React app built with Gatsby and tested with Jest. It uses [Tone.js](https://github.com/Tonejs/Tone.js/) to make sound and [Webmidi](https://github.com/djipco/webmidi) to take MIDI input from the user's attached MIDI controller. As such, it only works in browsers that support WebMIDI, i.e. Chrome, Opera, and Edge. It's not in any way optimized for mobile, and has only at the moment been tested in Chrome.
 
-1.  **Start developing.**
+At the moment, there's no login or data storage. It's just a static app hosted on Netlify at https://eartraining.arthurthefourth.com 
 
-    Navigate into your new site’s directory and start it up.
+## How It Works
 
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
+The app plays an opening chord to give you context, then it plays four notes. Your job is to play those four notes back on your MIDI controller. You can choose any root note, but at the moment, it only supports major tonality, and a few different "scale" types: major scale, major pentatonic, major triad, and "do re mi".
 
-1.  **Open the source code and start editing!**
+Octaves are ignored, so if the computer plays, for example, `C4 D3 E3 A3`, and you play back `C2 D3 E3 A2`, it will call that correct. This is a quick-and-dirty implementation to keep people from having to fiddle around with octaves (especially on small MIDI controllers), but I'm certainly open to other options.
 
-    Your site is now running at `http://localhost:8000`!
+## Future Plans
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+I've got a few features I'd definitely like to add:
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+- Some sort of point system. Ideally this could keep track of what specific roots, scales, and intervals you have trouble with.
+- Minor scales/keys
+- Musical phrases (right now, note selection is just randomized)
+- Variable phrase length
+- Variable tempo
+- Remembering your progress across multiple sessions
+- Unit tests
 
-## 🧐 What's inside?
+And some features I'm less sure about:
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+- Displaying note names when you make a mistake
+- Optional time limit for playing the phrase back
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+## Contributing
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+I don't have much time to work on this at the moment, but I'd love to hear ideas and see contributions from other people, especially if their needs are different from mine.
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+- If you've found a bug, please create an issue.
+- If you'd like to add a new feature, please create an issue so we can talk about it.
+- If you'd like to tackle an existing issue, make sure it's ready to work on before you spend time coding! Then submit a PR, and I'll take a look.
 
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
-
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/gatsbyjs/gatsby-starter-default)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
+And finally, please format the JavaScript in your PRs with Prettier!
